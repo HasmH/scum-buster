@@ -1,4 +1,4 @@
-import { StackContext, RDS, Script, NextjsSite } from "sst/constructs";
+import { StackContext, RDS, Script, NextjsSite, Api } from "sst/constructs";
 
 export function Default({ stack }: StackContext) {
   const rds = new RDS(stack, "db", {
@@ -27,6 +27,15 @@ export function Default({ stack }: StackContext) {
     onCreate: "packages/functions/src/migrate.handler",
     onUpdate: "packages/functions/src/migrate.handler",
   });
+
+  const api = new Api(stack, "api", {
+    routes: {
+      "GET /user/{steamids}": "packages/functions/src/get.handler",
+      "POST /downvote/{steamid}": "packages/functions/src/downvote.handler",
+    },
+  });
+
+  api.bind([rds]);
 
   stack.addOutputs({
     SiteUrl: site.url,
