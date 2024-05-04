@@ -1,13 +1,18 @@
-import { Api } from "sst/node/api";
-
+import Box from "@mui/material/Box";
+import { TextField } from "@mui/material";
 export default function Home() {
   return (
-    <div>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+      }}
+    >
       <h1>Scum Buster</h1>
-      <p>
-        Scum Buster is a tool that allows you to report toxic players in steam
-        games.
-      </p>
-    </div>
+      <TextField />
+    </Box>
   );
 }
